@@ -1,14 +1,9 @@
-# The computer picks a secret word. The player guesses 
-# letters one by one. You need to print the current state
-# of the word (e.g., p y _ t h _ _) and track how many lives the player has left.
-# later make file for the words rather than a big tuple
 import json
 import random
 
 with open("words.json", "r") as file:
     category = json.load(file)
 
-print(category["country names"])
 
 def displayWord (guessedList, word):
     for char in word:
@@ -42,7 +37,6 @@ def runGame (word):
             if parts:
                 print("Wrong guess, -1 body part")
                 remPart(person)
-                displayPerson(person)
 
                 if not parts:
                     print(f"Your are all out of Guesses!, the word was {word}")
@@ -57,10 +51,10 @@ def guessedChecked (word, guessedList):
             return False 
     return True
 
-def pickWord():
+def pickWord(words):
     return words[random.randint(0, len(words)-1)]
 
-def chooseTopic ():
+def chooseTopic (category):
     print(
 """What should be the topic for this game?
     Animals (1)
@@ -68,7 +62,26 @@ def chooseTopic ():
     Programming Related (3)
     Random (4)
 """)
-    choice = input("Enter here: ")
+    try:
+        choice = int(input("Enter here: "))
+    except ValueError:
+        print("Try again with a valid input")
+    words = list()
+
+    match choice:
+        case 1:
+            words = category["animals"]
+        case 2:
+            words = category["country names"]
+        case 3:
+            words = category["programming"]
+        case _:
+            print("choice is out of range!")
+    if words:
+        return words
+    else:
+        print("error occured")
+
 print("-- Welcome to Hangman Terminal game --")
 print("A random word has been chosen, you have 6 attempts to guess it!!")
-# startGame(pickWord())
+runGame(pickWord(chooseTopic(category)))
