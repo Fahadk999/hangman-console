@@ -1,0 +1,5 @@
+{
+    "animals" : ["giraffe", "kangaroo", "panther", "tiger", "lion", "cat"],
+    "country names" : ["spain", "argentina", "mexico", "england", "america"],
+    "programming" : ["python", "javascript", "microsoft", "compiler", "database"]
+}
